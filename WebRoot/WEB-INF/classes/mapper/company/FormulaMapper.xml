@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.company.mapper.FormulaMapper" >
+  <sql id="Base_Column_List" >
+    id,
+    formula_name as formulaName,
+    create_by as createBy,
+    del_flag as delFlag,
+    create_date as createDate,
+    update_by as updateBy,
+    update_date as updateDate
+  </sql>
+
+  <select id="findAll" resultType="com.ah.company.vo.FormulaVo" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />,
+    DATE_FORMAT(create_date,'%Y-%m-%d %H:%i:%S') AS createDateString
+    from formula where del_flag = '0'
+      <if test="formulaName !=null and formulaName!='' ">
+          and formula_name like concat('%',#{formulaName},'%')
+      </if>
+    order by create_date desc
+  </select>
+
+  <select id="findAll2" resultType="com.ah.company.vo.FormulaVo" parameterType="map">
+      SELECT
+          rm.id as formulaMatarialId,
+          rm.commonly_called AS commonlyCalled,
+          rm.china_name AS chinaName,
+          rm.english_name AS englishName,
+          rm.chemical_formula AS chemicalFormula,
+          fm.need_num AS needNum,
+          fm.id as id
+      FROM
+          formula_matarial fm
+      INNER JOIN raw_material rm ON fm.raw_material_id = rm.id
+      AND rm.del_flag = '0'
+      where fm.del_flag = '0'
+      and fm.formula_id =#{formulaId}
+      order by fm.create_date desc
+  </select>
+
+    <select id="findAllFormula" resultType="com.ah.company.vo.FormulaVo">
+        SELECT
+        rm.id as formulaMatarialId,
+        rm.commonly_called AS commonlyCalled,
+        rm.china_name AS chinaName,
+        rm.english_name AS englishName,
+        rm.chemical_formula AS chemicalFormula,
+        fm.need_num AS needNum,
+        fm.id as id,
+        fm.raw_material_id as matarialId
+        FROM
+        formula_matarial fm
+        INNER JOIN raw_material rm ON fm.raw_material_id = rm.id
+        AND rm.del_flag = '0'
+        where fm.del_flag = '0'
+        and fm.formula_id =#{formulaId}
+        order by fm.create_date desc
+    </select>
+
+  <select id="findFormulas" resultType="com.ah.company.vo.FormulaVo">
+      select
+      <include refid="Base_Column_List" />,
+      DATE_FORMAT(create_date,'%Y-%m-%d %H:%i:%S') AS createDateString
+      from formula where del_flag = '0'
+        and id  in(
+        select fm.formula_id from formula_matarial fm where fm.del_flag='0'
+        )
+      order by create_date desc
+  </select>
+
+
+  <insert id="save" parameterType="com.ah.company.pojo.Formula" >
+    insert into formula (id, formula_name, create_by, 
+      del_flag, create_date, update_by, 
+      update_date)
+    values (#{id,jdbcType=VARCHAR}, #{formulaName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="update" parameterType="com.ah.company.pojo.Formula" >
+    update formula
+    set formula_name = #{formulaName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

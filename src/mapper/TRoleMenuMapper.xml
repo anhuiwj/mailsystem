@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ah.manager.mapper.TRoleMenuMapper">
+
+  <sql id="Base_Column_List">
+    role_id, menu_id, del_flag
+  </sql>
+
+  <insert id="save" parameterType="com.ah.manager.pojo.TRoleMenu">
+    insert into t_role_menu (role_id, menu_id, del_flag
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByExample" parameterType="map">
+    update t_role_menu
+    set role_id = #{record.roleId,jdbcType=VARCHAR},
+      menu_id = #{record.menuId,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=VARCHAR}
+  </update>
+  <update id="delete">
+    update t_role_menu
+    set del_flag = '1'
+    where role_id = #{roleId}
+  </update>
+
+</mapper>

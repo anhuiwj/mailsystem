@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.manager.mapper.TUserRoleMapper" >
+  <sql id="Base_Column_List" >
+    id, user_id, role_id, del_flag, source_id, create_by, create_date, update_by, update_date
+  </sql>
+
+
+  <insert id="save" parameterType="com.ah.manager.pojo.TUserRole" >
+    insert into t_user_role (id, user_id, role_id, del_flag,
+    source_id, create_by, create_date,
+    update_by, update_date)
+    values (#{id}, #{userId}, #{roleId}, #{delFlag},
+    #{sourceId}, #{createBy}, #{createDate},
+    #{updateBy}, #{updateDate})
+  </insert>
+
+  <update id="delete">
+    update t_user_role
+    set
+    del_flag = '1'
+    where user_id = #{userId}
+  </update>
+
+  <!--<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ah.manager.pojo.TUserRoleExample" >-->
+    <!--select-->
+    <!--<if test="distinct" >-->
+      <!--distinct-->
+    <!--</if>-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from t_user_role-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+    <!--<if test="orderByClause != null" >-->
+      <!--order by ${orderByClause}-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from t_user_role-->
+    <!--where id = #{id,jdbcType=CHAR}-->
+  <!--</select>-->
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >-->
+    <!--delete from t_user_role-->
+    <!--where id = #{id,jdbcType=CHAR}-->
+  <!--</delete>-->
+  <!--<delete id="deleteByExample" parameterType="com.ah.manager.pojo.TUserRoleExample" >-->
+    <!--delete from t_user_role-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</delete>-->
+
+  <!--<insert id="insertSelective" parameterType="com.ah.manager.pojo.TUserRole" >-->
+    <!--insert into t_user_role-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="userId != null" >-->
+        <!--user_id,-->
+      <!--</if>-->
+      <!--<if test="roleId != null" >-->
+        <!--role_id,-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--del_flag,-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--source_id,-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--create_by,-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--create_date,-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--update_by,-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--update_date,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--#{id,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="userId != null" >-->
+        <!--#{userId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="roleId != null" >-->
+        <!--#{roleId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--#{delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--#{sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--#{createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--#{createDate},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--#{updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--#{updateDate},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<select id="countByExample" parameterType="com.ah.manager.pojo.TUserRoleExample" resultType="java.lang.Integer" >-->
+    <!--select count(*) from t_user_role-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<update id="updateByExampleSelective" parameterType="map" >-->
+    <!--update t_user_role-->
+    <!--<set >-->
+      <!--<if test="record.id != null" >-->
+        <!--id = #{record.id,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="record.userId != null" >-->
+        <!--user_id = #{record.userId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="record.roleId != null" >-->
+        <!--role_id = #{record.roleId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="record.delFlag != null" >-->
+        <!--del_flag = #{record.delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.sourceId != null" >-->
+        <!--source_id = #{record.sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.createBy != null" >-->
+        <!--create_by = #{record.createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.createDate != null" >-->
+        <!--create_date = #{record.createDate},-->
+      <!--</if>-->
+      <!--<if test="record.updateBy != null" >-->
+        <!--update_by = #{record.updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.updateDate != null" >-->
+        <!--update_date = #{record.updateDate},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByExample" parameterType="map" >-->
+    <!--update t_user_role-->
+    <!--set id = #{record.id,jdbcType=CHAR},-->
+      <!--user_id = #{record.userId,jdbcType=CHAR},-->
+      <!--role_id = #{record.roleId,jdbcType=CHAR},-->
+      <!--del_flag = #{record.delFlag,jdbcType=VARCHAR},-->
+      <!--source_id = #{record.sourceId,jdbcType=VARCHAR},-->
+      <!--create_by = #{record.createBy,jdbcType=VARCHAR},-->
+      <!--create_date = #{record.createDate},-->
+      <!--update_by = #{record.updateBy,jdbcType=VARCHAR},-->
+      <!--update_date = #{record.updateDate}-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.ah.manager.pojo.TUserRole" >-->
+    <!--update t_user_role-->
+    <!--<set >-->
+      <!--<if test="userId != null" >-->
+        <!--user_id = #{userId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="roleId != null" >-->
+        <!--role_id = #{roleId,jdbcType=CHAR},-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--del_flag = #{delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--source_id = #{sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--create_by = #{createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--create_date = #{createDate},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--update_by = #{updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--update_date = #{updateDate},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id,jdbcType=CHAR}-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKey" parameterType="com.ah.manager.pojo.TUserRole" >-->
+    <!--update t_user_role-->
+    <!--set user_id = #{userId,jdbcType=CHAR},-->
+      <!--role_id = #{roleId,jdbcType=CHAR},-->
+      <!--del_flag = #{delFlag,jdbcType=VARCHAR},-->
+      <!--source_id = #{sourceId,jdbcType=VARCHAR},-->
+      <!--create_by = #{createBy,jdbcType=VARCHAR},-->
+      <!--create_date = #{createDate},-->
+      <!--update_by = #{updateBy,jdbcType=VARCHAR},-->
+      <!--update_date = #{updateDate}-->
+    <!--where id = #{id,jdbcType=CHAR}-->
+  <!--</update>-->
+</mapper>

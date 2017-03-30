@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.company.mapper.RawMaterialMapper" >
+  <sql id="Base_Column_List" >
+    id, commonly_called, china_name, english_name, chemical_formula, del_flag, source_id,
+    create_by, create_date, update_by, update_date, Inventory
+  </sql>
+  <select id="findAll" resultType="com.ah.company.pojo.RawMaterial" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from raw_material
+      WHERE del_flag = '0'
+    <if test="commonlyCalled !=null and commonlyCalled!='' ">
+      and commonly_called LIKE concat('%',#{commonlyCalled},'%')
+    </if>
+    <if test="englishName !=null and englishName!='' ">
+      and english_name LIKE concat('%',#{englishName},'%')
+    </if>
+      order by create_date desc
+  </select>
+
+  <select id="get" resultType="com.ah.company.pojo.RawMaterial"  >
+    select
+    <include refid="Base_Column_List" />
+    from raw_material
+    WHERE id=#{id} and del_flag = '0'
+  </select>
+
+
+  <select id="findRawMaterial" resultType="com.ah.company.pojo.RawMaterial">
+    select
+    <include refid="Base_Column_List" />
+    from raw_material
+    WHERE del_flag = '0'
+    order by create_date desc
+  </select>
+
+  <update id="delete" >
+    UPDATE raw_material
+      SET del_flag = '1'
+      where id = #{id}
+  </update>
+  <update id="update" parameterType="com.ah.company.pojo.RawMaterial" >
+    update raw_material
+    set commonly_called = #{commonlyCalled,jdbcType=VARCHAR},
+      china_name = #{chinaName,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      chemical_formula = #{chemicalFormula,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      Inventory = #{inventory,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR} and del_flag = '0'
+  </update>
+  
+    <insert id="save" parameterType="com.ah.company.pojo.RawMaterial" >
+    insert into raw_material (id, commonly_called, china_name,
+      english_name, chemical_formula, del_flag,
+      source_id, create_by, create_date,
+      update_by, update_date, Inventory
+      )
+    values (#{id,jdbcType=VARCHAR}, #{commonlyCalled,jdbcType=VARCHAR}, #{chinaName,jdbcType=VARCHAR},
+      #{englishName,jdbcType=VARCHAR}, #{chemicalFormula,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR},
+      #{sourceId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{inventory,jdbcType=INTEGER}
+      )
+  </insert>
+</mapper>

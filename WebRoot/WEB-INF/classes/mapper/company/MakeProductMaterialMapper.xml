@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.company.mapper.MakeProductMaterialMapper" >
+  <sql id="Base_Column_List" >
+    id, material_num, make_product_id, raw_material_id, del_flag, source_id, create_by,
+    create_date, update_by, update_date
+  </sql>
+
+  <select id="findAll" resultType="com.ah.company.pojo.MakeProductMaterial" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from make_product_material
+    where del_flag = '0'
+    order by create_date desc
+  </select>
+
+  <insert id="save" parameterType="com.ah.company.pojo.MakeProductMaterial" >
+    insert into make_product_material (id, make_product_id, raw_material_id,
+    del_flag, source_id, create_by,
+    create_date, update_by, update_date
+    )
+    values (#{id,jdbcType=VARCHAR}, #{makeProductId,jdbcType=VARCHAR}, #{rawMaterialId,jdbcType=VARCHAR},
+    #{delFlag,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+    #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}
+    )
+  </insert>
+
+  <update id="update" parameterType="com.ah.company.pojo.MakeProductMaterial" >
+    update make_product_material
+    set make_product_id = #{makeProductId,jdbcType=VARCHAR},
+    raw_material_id = #{rawMaterialId,jdbcType=VARCHAR},
+    del_flag = #{delFlag,jdbcType=VARCHAR},
+    source_id = #{sourceId,jdbcType=VARCHAR},
+    create_by = #{createBy,jdbcType=VARCHAR},
+    create_date = #{createDate,jdbcType=TIMESTAMP},
+    update_by = #{updateBy,jdbcType=VARCHAR},
+    update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!--<update id="updateByPrimaryKey" parameterType="com.ah.company.pojo.MakeProductMaterial" >-->
+    <!--update make_product_material-->
+    <!--set material_num = #{materialNum,jdbcType=INTEGER},-->
+    <!--make_product_id = #{makeProductId,jdbcType=VARCHAR},-->
+    <!--raw_material_id = #{rawMaterialId,jdbcType=VARCHAR},-->
+    <!--del_flag = #{delFlag,jdbcType=VARCHAR},-->
+    <!--source_id = #{sourceId,jdbcType=VARCHAR},-->
+    <!--create_by = #{createBy,jdbcType=VARCHAR},-->
+    <!--create_date = #{createDate,jdbcType=TIMESTAMP},-->
+    <!--update_by = #{updateBy,jdbcType=VARCHAR},-->
+    <!--update_date = #{updateDate,jdbcType=TIMESTAMP}-->
+    <!--where id = #{id,jdbcType=VARCHAR}-->
+  <!--</update>-->
+  <!--<insert id="insert" parameterType="com.ah.company.pojo.MakeProductMaterial" >-->
+    <!--insert into make_product_material (id, material_num, make_product_id,-->
+    <!--raw_material_id, del_flag, source_id,-->
+    <!--create_by, create_date, update_by,-->
+    <!--update_date)-->
+    <!--values (#{id,jdbcType=VARCHAR}, #{materialNum,jdbcType=INTEGER}, #{makeProductId,jdbcType=VARCHAR},-->
+    <!--#{rawMaterialId,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR},-->
+    <!--#{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},-->
+    <!--#{updateDate,jdbcType=TIMESTAMP})-->
+  <!--</insert>-->
+  <!--<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ah.company.pojo.MakeProductMaterialExample" >-->
+    <!--select-->
+    <!--<if test="distinct" >-->
+      <!--distinct-->
+    <!--</if>-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from make_product_material-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+    <!--<if test="orderByClause != null" >-->
+      <!--order by ${orderByClause}-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from make_product_material-->
+    <!--where id = #{id,jdbcType=VARCHAR}-->
+  <!--</select>-->
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >-->
+    <!--delete from make_product_material-->
+    <!--where id = #{id,jdbcType=VARCHAR}-->
+  <!--</delete>-->
+  <!--<delete id="deleteByExample" parameterType="com.ah.company.pojo.MakeProductMaterialExample" >-->
+    <!--delete from make_product_material-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</delete>-->
+  <!--<insert id="insertSelective" parameterType="com.ah.company.pojo.MakeProductMaterial" >-->
+    <!--insert into make_product_material-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="makeProductId != null" >-->
+        <!--make_product_id,-->
+      <!--</if>-->
+      <!--<if test="rawMaterialId != null" >-->
+        <!--raw_material_id,-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--del_flag,-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--source_id,-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--create_by,-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--create_date,-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--update_by,-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--update_date,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--#{id,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="makeProductId != null" >-->
+        <!--#{makeProductId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="rawMaterialId != null" >-->
+        <!--#{rawMaterialId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--#{delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--#{sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--#{createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--#{createDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--#{updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--#{updateDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<select id="countByExample" parameterType="com.ah.company.pojo.MakeProductMaterialExample" resultType="java.lang.Integer" >-->
+    <!--select count(*) from make_product_material-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<update id="updateByExampleSelective" parameterType="map" >-->
+    <!--update make_product_material-->
+    <!--<set >-->
+      <!--<if test="record.id != null" >-->
+        <!--id = #{record.id,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.makeProductId != null" >-->
+        <!--make_product_id = #{record.makeProductId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.rawMaterialId != null" >-->
+        <!--raw_material_id = #{record.rawMaterialId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.delFlag != null" >-->
+        <!--del_flag = #{record.delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.sourceId != null" >-->
+        <!--source_id = #{record.sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.createBy != null" >-->
+        <!--create_by = #{record.createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.createDate != null" >-->
+        <!--create_date = #{record.createDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.updateBy != null" >-->
+        <!--update_by = #{record.updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.updateDate != null" >-->
+        <!--update_date = #{record.updateDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByExample" parameterType="map" >-->
+    <!--update make_product_material-->
+    <!--set id = #{record.id,jdbcType=VARCHAR},-->
+      <!--make_product_id = #{record.makeProductId,jdbcType=VARCHAR},-->
+      <!--raw_material_id = #{record.rawMaterialId,jdbcType=VARCHAR},-->
+      <!--del_flag = #{record.delFlag,jdbcType=VARCHAR},-->
+      <!--source_id = #{record.sourceId,jdbcType=VARCHAR},-->
+      <!--create_by = #{record.createBy,jdbcType=VARCHAR},-->
+      <!--create_date = #{record.createDate,jdbcType=TIMESTAMP},-->
+      <!--update_by = #{record.updateBy,jdbcType=VARCHAR},-->
+      <!--update_date = #{record.updateDate,jdbcType=TIMESTAMP}-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.ah.company.pojo.MakeProductMaterial" >-->
+    <!--update make_product_material-->
+    <!--<set >-->
+      <!--<if test="makeProductId != null" >-->
+        <!--make_product_id = #{makeProductId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="rawMaterialId != null" >-->
+        <!--raw_material_id = #{rawMaterialId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--del_flag = #{delFlag,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="sourceId != null" >-->
+        <!--source_id = #{sourceId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--create_by = #{createBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--create_date = #{createDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--update_by = #{updateBy,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--update_date = #{updateDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id,jdbcType=VARCHAR}-->
+  <!--</update>-->
+</mapper>

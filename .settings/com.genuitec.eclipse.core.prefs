@@ -1,0 +1,4 @@
+#Mon Mar 20 13:34:49 CST 2017
+eclipse.preferences.version=1
+validator.Checked=/,src/config/spring/spring-mvc.xml
+validator.Unchecked=

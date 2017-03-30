@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.manager.mapper.TUserMapper" >
+
+  <sql id="Base_Column_List" >
+    u.id as id,
+    u.username as username,
+    u.usercode as userCode,
+    u.birthday as birthday,
+    u.sex as sex,
+    u.address as address,
+    u.password as password,
+    del_flag,create_date,create_by,update_date,update_by
+  </sql>
+
+  <select id="findAll" resultType="com.ah.manager.pojo.TUser" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user u
+    WHERE u.del_flag = '0'
+    <if test="username !=null and username!='' ">
+      and u.username like concat('%',#{username},'%')
+    </if>
+    <if test="userCode !=null and userCode!='' ">
+      and u.usercode like concat('%',#{userCode},'%')
+    </if>
+  </select>
+
+
+  <insert id="save" parameterType="com.ah.manager.pojo.TUser" >
+  insert into t_user (id, username,usercode, birthday,
+  sex, address, password,del_flag,create_date,create_by,update_date,update_by
+  )
+  values (#{id}, #{username},#{userCode} ,#{birthday},
+  #{sex}, #{address}, #{password},#{delFlag},#{createDate},#{createBy},#{updateDate},#{updateBy}
+  )
+  </insert>
+
+  <select id="findByUserCode" resultType="com.ah.manager.pojo.TUser">
+    select
+    <include refid="Base_Column_List" />
+    from t_user u
+    WHERE u.del_flag = '0'
+    and u.usercode =#{userCode}
+  </select>
+
+
+  <select id="findById" resultType="com.ah.manager.pojo.TUser">
+    select
+    <include refid="Base_Column_List" />
+    from t_user u
+    WHERE u.del_flag = '0'
+    and u.id =#{id}
+  </select>
+
+  <update id="update" parameterType="com.ah.manager.pojo.TUser" >
+    update t_user
+    set username = #{username},
+        sex = #{sex}
+    where id = #{id}
+  </update>
+
+  <update id="delete" >
+    update t_user
+    set del_flag = '1',
+    where id = #{id}
+  </update>
+
+  <select id="findUsers" resultType="com.ah.manager.pojo.TUser">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_user u
+    WHERE
+    u.del_flag = '0'
+    AND u.id NOT IN (
+    SELECT
+    tr.user_id
+    FROM
+    t_user_role tr
+    WHERE
+    tr.del_flag = '0'
+    )
+  </select>
+</mapper>

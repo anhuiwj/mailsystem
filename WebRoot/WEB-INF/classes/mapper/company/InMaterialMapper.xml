@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.company.mapper.InMaterialMapper" >
+  <sql id="Base_Column_List" >
+    i.id,
+    i.raw_material_id,
+    i.in_num,
+    i.in_user,
+    i.in_date,
+    i.del_flag,
+    i.create_by,
+    i.create_date,
+    i.update_by,
+    i.update_date
+  </sql>
+
+  <select id="findAll" resultType="com.ah.company.vo.InMaterialVo" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />,
+    DATE_FORMAT(i.in_date ,'%Y-%m-%d %H:%i:%S') As inDateString,
+    r.commonly_called as rawMaterName
+    from in_material i
+      INNER join raw_material r on i.raw_material_id = r.id and r.del_flag = '0'
+    where i.del_flag = '0'
+    <if test="rawMaterName !=null and rawMaterName!='' ">
+      and r.commonly_called like concat('%',#{rawMaterName},'%')
+    </if>
+    order by i.create_date desc
+  </select>
+  
+  
+  <select id="findAll2" resultType="com.ah.company.vo.InMaterialVo">
+    select
+    <include refid="Base_Column_List" />,
+    DATE_FORMAT(i.in_date ,'%Y-%m-%d %H:%i:%S') As inDateString,
+    r.commonly_called as rawMaterName
+    from in_material i
+      INNER join raw_material r on i.raw_material_id = r.id and r.del_flag = '0'
+    where i.del_flag = '0'
+    order by i.create_date desc
+  </select>
+  
+  
+
+  <insert id="save" parameterType="com.ah.company.pojo.InMaterial" >
+    insert into in_material (id, raw_material_id, in_num, 
+      in_user, in_date, del_flag, 
+      create_by, create_date, update_by, 
+      update_date)
+    values (#{id,jdbcType=VARCHAR}, #{rawMaterialId,jdbcType=VARCHAR}, #{inNum,jdbcType=INTEGER}, 
+      #{inUser,jdbcType=VARCHAR}, #{inDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+
+  <select id="selectById" resultType="com.ah.company.pojo.InMaterial">
+    select
+    <include refid="Base_Column_List" />
+    from in_material i
+    where i.del_flag = '0'
+    and id = #{id}
+  </select>
+
+  <select id="selectOne" resultType="com.ah.company.pojo.InMaterial" parameterType="com.ah.company.pojo.InMaterial" >
+    select
+    <include refid="Base_Column_List" />
+      from in_material i
+    where i.del_flag = '0'
+    <if test="rawMaterialId!=null and rawMaterialId !='' ">
+      and i.raw_material_id = #{rawMaterialId}
+    </if>
+    <if test="id !=null and id!='' ">
+      and id = #{id}
+    </if>
+  </select>
+
+  <update id="inmaterial" parameterType="com.ah.company.pojo.InMaterial">
+    update in_material
+    set
+      in_num = #{inNum},
+      <if test="inUser !=null and inUser!='' ">
+        in_user = #{inUser},
+      </if>
+    <if test="inDate !=null">
+      in_date = #{inDate},
+    </if>
+      update_by = #{updateBy},
+      update_date = #{updateDate}
+    where id = #{id}
+  </update>
+
+  <update id="update" parameterType="com.ah.company.pojo.InMaterial" >
+    update in_material
+    set raw_material_id = #{rawMaterialId,jdbcType=VARCHAR},
+      in_num = #{inNum,jdbcType=INTEGER},
+      in_user = #{inUser,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

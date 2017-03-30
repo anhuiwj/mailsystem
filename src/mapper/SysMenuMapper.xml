@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.manager.mapper.SysMenuMapper" >
+  <sql id="Base_Column_List" >
+    m.id,
+    m.pid,
+    m.sys,
+    m.name,
+    m.href,
+    m.target,
+    m.icon,
+    m.permission,
+    m.display,
+    m.sort,
+    m.del_flag AS delFlag,
+    m.create_date AS createDate,
+    m.create_by AS createBy,
+    m.update_date AS updateDate,
+    m.update_by AS updateBy,
+    m.remarks
+  </sql>
+  <select id="findAll" resultType="com.ah.manager.pojo.SysMenu"  >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu m
+    where del_flag='0'
+      order by create_date desc
+  </select>
+
+  <select id="findMenu" resultType="com.ah.manager.pojo.SysMenu"  >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu m
+    where del_flag='0' and display = '1' and id !='12'
+    order by create_date desc
+  </select>
+
+  <select id="findByUserId" resultType="com.ah.manager.pojo.SysMenu">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    t_user u
+    INNER JOIN t_user_role r ON u.id = r.user_id
+    AND r.del_flag = '0'
+    INNER JOIN t_role_menu rm ON r.role_id = rm.role_id
+    AND rm.del_flag = '0'
+    INNER JOIN sys_menu m ON rm.menu_id = m.id
+    AND m.del_flag = '0'
+    WHERE
+    u.del_flag = '0' and u.id = #{id} and m.display = '1' and m.id !='12'
+  </select>
+
+  <select id="findById" resultType="com.ah.manager.pojo.SysMenu">
+    SELECT
+    <include refid="Base_Column_List" />
+    from sys_menu m
+    where del_flag='0' and m.id=#{id}
+  </select>
+  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from sys_menu-->
+    <!--where id = #{id}-->
+  <!--</select>-->
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >-->
+    <!--delete from sys_menu-->
+    <!--where id = #{id}-->
+  <!--</delete>-->
+  <!--<delete id="deleteByExample" parameterType="com.ah.manager.pojo.SysMenu" >-->
+    <!--delete from sys_menu-->
+  <!--</delete>-->
+  <insert id="insert" parameterType="com.ah.manager.pojo.SysMenu" >
+    insert into sys_menu (id, pid, sys,
+      name, href, target,
+      icon, permission, display,
+      sort, del_flag, create_date,
+      create_by, update_date, update_by)
+    values (#{id}, #{pid}, #{sys},
+      #{name}, #{href}, #{target},
+      #{icon}, #{permission}, #{display},
+      #{sort}, #{delFlag}, #{createDate},
+      #{createBy}, #{updateDate}, #{updateBy})
+  </insert>
+  <!--<insert id="insertSelective" parameterType="com.ah.manager.pojo.SysMenu" >-->
+    <!--insert into sys_menu-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--id,-->
+      <!--</if>-->
+      <!--<if test="pid != null" >-->
+        <!--pid,-->
+      <!--</if>-->
+      <!--<if test="sys != null" >-->
+        <!--sys,-->
+      <!--</if>-->
+      <!--<if test="name != null" >-->
+        <!--name,-->
+      <!--</if>-->
+      <!--<if test="href != null" >-->
+        <!--href,-->
+      <!--</if>-->
+      <!--<if test="target != null" >-->
+        <!--target,-->
+      <!--</if>-->
+      <!--<if test="icon != null" >-->
+        <!--icon,-->
+      <!--</if>-->
+      <!--<if test="permission != null" >-->
+        <!--permission,-->
+      <!--</if>-->
+      <!--<if test="display != null" >-->
+        <!--display,-->
+      <!--</if>-->
+      <!--<if test="sort != null" >-->
+        <!--sort,-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--del_flag,-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--create_date,-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--create_by,-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--update_date,-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--update_by,-->
+      <!--</if>-->
+      <!--<if test="remarks != null" >-->
+        <!--remarks,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="id != null" >-->
+        <!--#{id},-->
+      <!--</if>-->
+      <!--<if test="pid != null" >-->
+        <!--#{pid},-->
+      <!--</if>-->
+      <!--<if test="sys != null" >-->
+        <!--#{sys},-->
+      <!--</if>-->
+      <!--<if test="name != null" >-->
+        <!--#{name},-->
+      <!--</if>-->
+      <!--<if test="href != null" >-->
+        <!--#{href},-->
+      <!--</if>-->
+      <!--<if test="target != null" >-->
+        <!--#{target},-->
+      <!--</if>-->
+      <!--<if test="icon != null" >-->
+        <!--#{icon},-->
+      <!--</if>-->
+      <!--<if test="permission != null" >-->
+        <!--#{permission},-->
+      <!--</if>-->
+      <!--<if test="display != null" >-->
+        <!--#{display},-->
+      <!--</if>-->
+      <!--<if test="sort != null" >-->
+        <!--#{sort,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="delFlag != null" >-->
+        <!--#{delFlag},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--#{createDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--#{createBy},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--#{updateDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--#{updateBy},-->
+      <!--</if>-->
+      <!--<if test="remarks != null" >-->
+        <!--#{remarks},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<select id="countByExample" parameterType="com.ah.manager.pojo.SysMenu" resultType="java.lang.Integer" >-->
+    <!--select count(*) from sys_menu-->
+  <!--</select>-->
+  <!--<update id="updateByExampleSelective" parameterType="map" >-->
+    <!--update sys_menu-->
+    <!--<set >-->
+      <!--<if test="record.id != null" >-->
+        <!--id = #{record.id},-->
+      <!--</if>-->
+      <!--<if test="record.pid != null" >-->
+        <!--pid = #{record.pid},-->
+      <!--</if>-->
+      <!--<if test="record.sys != null" >-->
+        <!--sys = #{record.sys},-->
+      <!--</if>-->
+      <!--<if test="record.name != null" >-->
+        <!--name = #{record.name},-->
+      <!--</if>-->
+      <!--<if test="record.href != null" >-->
+        <!--href = #{record.href},-->
+      <!--</if>-->
+      <!--<if test="record.target != null" >-->
+        <!--target = #{record.target},-->
+      <!--</if>-->
+      <!--<if test="record.icon != null" >-->
+        <!--icon = #{record.icon},-->
+      <!--</if>-->
+      <!--<if test="record.permission != null" >-->
+        <!--permission = #{record.permission},-->
+      <!--</if>-->
+      <!--<if test="record.display != null" >-->
+        <!--display = #{record.display},-->
+      <!--</if>-->
+      <!--<if test="record.sort != null" >-->
+        <!--sort = #{record.sort,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.delFlag != null" >-->
+        <!--del_flag = #{record.delFlag},-->
+      <!--</if>-->
+      <!--<if test="record.createDate != null" >-->
+        <!--create_date = #{record.createDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.createBy != null" >-->
+        <!--create_by = #{record.createBy},-->
+      <!--</if>-->
+      <!--<if test="record.updateDate != null" >-->
+        <!--update_date = #{record.updateDate,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.updateBy != null" >-->
+        <!--update_by = #{record.updateBy},-->
+      <!--</if>-->
+      <!--<if test="record.remarks != null" >-->
+        <!--remarks = #{record.remarks},-->
+      <!--</if>-->
+    <!--</set>-->
+  <!--</update>-->
+  <update id="update">
+    update sys_menu
+    set
+      pid = #{pid},
+      sys = #{sys},
+      name = #{name},
+      href = #{href},
+      target = #{target},
+      icon = #{icon},
+      permission = #{permission},
+      display = #{display},
+      sort = #{sort},
+      del_flag = #{delFlag},
+      create_date = #{createDate},
+      create_by = #{createBy},
+      update_date = #{updateDate},
+      update_by = #{updateBy}
+      where id = #{id} and del_flag = #{delFlag}
+  </update>
+
+  <update id="delete">
+    update sys_menu
+    set
+    del_flag = '1'
+    where id = #{id}
+  </update>
+
+  <select id="findChildren" resultType="com.ah.manager.pojo.SysMenu"  >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu m
+    where m.pid = #{pid} and m.del_flag = '0'
+  </select>
+
+  <select id="selectRoleMenu" resultType="com.ah.manager.pojo.SysMenu" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_menu m INNER join t_role_menu tm on m.id = tm.menu_id and tm.del_flag='0'
+    where m.del_flag = '0' and tm.role_id = #{roleId}
+  </select>
+</mapper>

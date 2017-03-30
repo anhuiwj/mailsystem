@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="/usr/local/dir_samba/HC_logs/tcm"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <Encoding>UTF-8</Encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <appender name="SRTEINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--用户行为操作的日志打印到以log-user开头的文件中 -->
+            <FileNamePattern>${LOG_HOME}/srte/srte-info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n%ex
+            </pattern>
+        </layout>
+    </appender>
+
+    <logger name="org.apache.ibatis" level="INFO" />
+    <logger name="org.mybatis" level="INFO"/>
+    <logger name="com.ah.manager.mapper" level="INFO"/>
+     <logger name="com.ah.company.mapper" level="INFO"/>
+
+    <logger name="SRTE" level="DEBUG" additivity="false">
+        <appender-ref ref="SRTEINFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

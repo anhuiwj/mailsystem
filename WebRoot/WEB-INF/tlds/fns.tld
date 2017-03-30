@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions sys</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>fns</short-name>
+  <uri>http://java.sun.com/jsp/jstl/functionss</uri>
+
+  <function>
+    <name>contains</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>java.lang.Boolean contains(java.util.List,java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>getDictById</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>java.util.List getDictById(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>getDictByCode</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>com.ah.manager.pojo.SysXDict getDictByCode(java.lang.String,java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>getDictToJSON</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>java.lang.String getDictToJSON(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>getUser</name>
+    <function-class>com.ah.manager.util.UserUtils</function-class>
+    <function-signature>com.ah.manager.pojo.TUser getCurrentUser()</function-signature>
+  </function>
+
+  <function>
+    <name>getRawMaterial</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>java.util.List getRawMaterial()</function-signature>
+  </function>
+  
+  <function>
+    <name>findFormulas</name>
+    <function-class>com.ah.manager.util.FnsUtils</function-class>
+    <function-signature>java.util.List findFormulas()</function-signature>
+  </function>
+
+  <function>
+    <name>getUsers</name>
+    <function-class>com.ah.manager.util.UserUtils</function-class>
+    <function-signature>java.util.List getUsers()</function-signature>
+  </function>
+
+
+</taglib>

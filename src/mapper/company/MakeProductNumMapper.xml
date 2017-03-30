@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.company.mapper.MakeProductNumMapper" >
+  <sql id="Base_Column_List" >
+    id, product_name,pro_num,formula_id, del_flag, source_id, create_by, create_date, update_by, update_date
+  </sql>
+  <select id="findAll" resultType="com.ah.company.pojo.MakeProductNum" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />,
+    DATE_FORMAT(create_date,'%Y-%m-%d %H:%i:%S') AS createDateString
+    from make_product_num
+    where del_flag = '0'
+    <if test="productName !=null and productName!='' ">
+      and product_name like  concat('%',#{productName},'%')
+    </if>
+    <if test="datemin !=null and datemin!='' ">
+      and create_date &gt;= #{datemin}
+    </if>
+    <if test="datemax !=null and datemax !='' ">
+      and create_date &lt;= #{datemax}
+    </if>
+      order by create_date desc
+  </select>
+  <insert id="save" parameterType="com.ah.company.pojo.MakeProductNum" >
+    insert into make_product_num (id,product_name,pro_num,formula_id,del_flag,
+      source_id, create_by, create_date,
+      update_by, update_date)
+    values (#{id}, #{productName},#{proNum},#{formulaId},#{delFlag},
+      #{sourceId}, #{createBy}, #{createDate},
+      #{updateBy}, #{updateDate})
+  </insert>
+  <update id="update" parameterType="com.ah.company.pojo.MakeProductNum" >
+    update make_product_num
+    set pro_num = #{proNum,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
