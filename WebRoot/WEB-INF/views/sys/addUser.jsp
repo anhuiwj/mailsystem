@@ -70,7 +70,7 @@
             //这里明确return false的话表单将不会提交;
             <c:if test="${empty TUser.id}">
                 if($.trim($('#password').val()) != $.trim($('#password1').val())){
-                    layer.alert("两次密码不一致");
+                    layer.alert("两次密码不一致");  
                     return false;
             }
             </c:if>
