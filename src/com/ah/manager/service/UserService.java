@@ -23,4 +23,6 @@ public interface UserService {
     void delete(String id);
 
     List<TUser> findUsers();
+    
+    boolean hasUser(String userCode);
 }

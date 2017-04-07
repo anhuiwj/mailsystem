@@ -17,7 +17,7 @@
         <!--password="${jdbc.password}">-->
         <!--</jdbcConnection>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/weixin?characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/javamail?characterEncoding=UTF-8"
                         userId="root"
                         password="root">
         </jdbcConnection>
@@ -75,7 +75,7 @@
         <!-- 指定数据库表 -->
         <!--<table tableName="t_user"></table>-->
         <!--<table tableName="t_role"></table>-->
-        <table tableName="t_user_role"></table>
+        <table tableName="mail"></table>
 
         <!--<table tableName="weixin_account"></table>-->
 

@@ -32,7 +32,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li class="external">
-							<h3><span class="bold">${fn:length(list)}</span> 条信息</h3>
+							<h3><span class="bold">${fn:length(list)}</span> 条未读邮件</h3>
 						</li>
 						<li>
 							<ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
@@ -44,7 +44,7 @@
 										<span class="label label-sm label-icon label-success">
 										<i class="fa fa-plus"></i>
 										</span>
-										${s.rawMaterName}</span>
+										来自于 ${s.sendUser}</span>
 										</a>
 									</li>
 								</c:forEach>
@@ -122,7 +122,7 @@
 				<div id="iframe_box" class="Hui-article">
 					<div class="show_iframe" >
 						<div style="display:none" class="loading"></div>
-						<iframe id="RightIFrame" onload="this.height=0;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>700?fdh:700)" scrolling="yes" frameborder="0" src="${ctx}/productIn/index" style="min-height:100%;min-width:100%;"></iframe>
+						<iframe id="RightIFrame" onload="this.height=0;var fdh=(this.Document?this.Document.body.scrollHeight:this.contentDocument.body.offsetHeight);this.height=(fdh>700?fdh:700)" src="${ctx}/receive/index" scrolling="yes" frameborder="0"  style="min-height:100%;min-width:100%;"></iframe>
 					</div>
 				</div>
 		</div>

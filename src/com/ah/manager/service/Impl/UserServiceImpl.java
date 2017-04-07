@@ -3,7 +3,10 @@ package com.ah.manager.service.Impl;
 import com.ah.manager.common.page.PageQueryMap;
 import com.ah.manager.common.page.model.Pager;
 import com.ah.manager.mapper.TUserMapper;
+import com.ah.manager.mapper.TUserRoleMapper;
 import com.ah.manager.pojo.TUser;
+import com.ah.manager.pojo.TUserRole;
+import com.ah.manager.service.RoleService;
 import com.ah.manager.service.UserService;
 import com.ah.manager.util.IdGen;
 import com.ah.manager.util.MD5Util;
@@ -23,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TUserMapper userMapper;
+    
+    @Autowired
+    private TUserRoleMapper tUserRoleMapper;
 
     @Override
     public void findAll(Pager pager) {
@@ -41,6 +47,12 @@ public class UserServiceImpl implements UserService {
             user.setId(IdGen.uuid());
             user.setPassword(MD5Util.MD5(user.getPassword()));
             userMapper.save(user);
+            TUserRole tUserRole = new TUserRole();
+            tUserRole.setId(IdGen.uuid());
+            tUserRole.setRoleId("37408db105dd4d43a25e865d9c1d4664");
+            tUserRole.setUserId(user.getId());
+            tUserRole.setDelFlag("0");
+            tUserRoleMapper.save(tUserRole);
         }else {
             user.setPassword(MD5Util.MD5(user.getPassword()));
             userMapper.update(user);
@@ -69,4 +81,13 @@ public class UserServiceImpl implements UserService {
     public List<TUser> findUsers() {
         return userMapper.findUsers();
     }
+
+	@Override
+	public boolean hasUser(String userCode) {
+		// TODO Auto-generated method stub
+		if(!StringUtils.isEmpty(userCode)&&userMapper.findByUserCode(userCode)!=null){
+			return true;
+		}
+		return false;
+	}
 }

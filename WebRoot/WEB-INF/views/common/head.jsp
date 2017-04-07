@@ -25,7 +25,6 @@
 <script src="${ctxStatic}/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="${ctxStatic}/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="${ctxStatic}/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="${ctxStatic}/admin/pages/scripts/login.js" type="text/javascript"></script>
 
 
 <!-- END FOOTER -->

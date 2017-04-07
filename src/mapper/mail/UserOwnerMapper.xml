@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ah.mail.mapper.UserOwnerMapper" >
+  <sql id="Base_Column_List" >
+    id,
+   	user_name as userName,
+   	email,
+   	owner,
+    del_flag as delFlag
+  </sql>
+
+  <insert id="save" parameterType="com.ah.mail.pojo.UserOwner" >
+    insert into user_info (id, user_name, 
+      email,owner,del_flag)
+    values (#{id}, #{userName},  #{email},  #{owner},
+      #{delFlag})
+  </insert>
+  
+  
+  <select id="findAll" resultType="com.ah.mail.pojo.UserOwner" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info  
+    where 1=1 and del_flag = '0'
+    <if test="owner !=null and owner !='' ">
+    	and owner = #{owner}
+    </if>
+  </select>
+  
+  
+  <select id="get" resultType="com.ah.mail.pojo.UserOwner">
+   select
+    <include refid="Base_Column_List" />
+    from user_info  
+    where 1=1 and del_flag = '0' and id = #{id}
+  </select>
+  
+  <update id="delete">
+  	update user_info set del_flag = '1'   where 1=1 and del_flag = '0' and id = #{id}
+  </update>
+  
+   <select id="findByUser" resultType="String" >
+   select
+    	email
+    from user_info  
+    where 1=1 and del_flag = '0' and owner = #{userId}
+  </select>
+  
+  
+	  
+</mapper>

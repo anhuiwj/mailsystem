@@ -6,6 +6,9 @@
 	<title>${fns:getDictByCode("00001", "1").name}</title>
 	<%@ include file="/WEB-INF/views/common/head.jsp" %>
 	<%@ include file="/WEB-INF/views/common/toplib.jsp" %>
+	<script type="text/javascript" src="${ctxStatic}/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="${ctxStatic}/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="${ctxStatic}/lib/layui/layui.js" ></script>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -46,11 +49,14 @@
 			</div>
 		</div>
 		<div class="form-actions">
-			<label class="checkbox">
-			<%--<input type="checkbox" name="remember" value="1"/>记住密码--%>
-			</label>
+			 <%--<input class="btn btn-primary radius  mt-50"    value="&nbsp;&nbsp注册&nbsp;&nbsp;">
+			 --%>
+			 <a onclick="addUser()" class="btn green-haze pull-right">
+				注册 <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+			&nbsp&nbsp&nbsp&nbsp
 			<button id="btn" class="btn green-haze pull-right">
-			Login <i class="m-icon-swapright m-icon-white"></i>
+				登录 <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>
 	</form>
@@ -64,12 +70,13 @@
 $(document).ready(function() {
   Metronic.init(); // init metronic core components
   Layout.init(); // init current layout
-  Login.init();
+  //Login.init();
   Demo.init();
 
 	$('#btn').click(function () {
 		loginForm();
 	});
+
 });
 function loginForm() {
 	var userCode = $("#userCode").val();
@@ -84,15 +91,6 @@ function loginForm() {
 	} else {
 		$("#message").text("");
 	}
-//	if ($("#validateCode").size() > 0) {
-//		var validateCode = $("#validateCode").val();
-//		if (validateCode == undefined || $.trim(validateCode) == "") {
-//			$("#message").text("验证码不能为空");
-//			return;
-//		} else {
-//			$("#message").text("");
-//		}
-//	}
 	var mask = layer.load(1, {shade: 0.4, time: 120 * 1000});
 	$.ajax({
 		url: "${ctx}/publickey",
@@ -109,6 +107,12 @@ function loginForm() {
 		}
 	});
 }
+
+function addUser(){
+	layer_show("注册",'${ctx}/user/add');
+}
+
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

@@ -5,6 +5,7 @@ import com.ah.manager.pojo.TUser;
 import com.ah.manager.response.JsonResponseEntity;
 import com.ah.manager.service.UserService;
 import com.ah.manager.util.CommonUtil;
+import com.ah.manager.util.UserUtils;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,5 +85,10 @@ public class UserController {
         return response;
     }
 
+    @RequestMapping(value = "/hasUser")
+    @ResponseBody
+    public boolean hasUser(String userCode ){
+        return userService.hasUser(userCode);
+    }
 
 }

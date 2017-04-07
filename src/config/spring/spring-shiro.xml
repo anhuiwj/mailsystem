@@ -28,6 +28,7 @@
                 /wechatController = anon
                 /login = authc
                 /logout = logout
+                /user/** = anon
                 /** = user
                 /index = anon
             </value>

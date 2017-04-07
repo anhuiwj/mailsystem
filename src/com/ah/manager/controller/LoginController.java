@@ -1,6 +1,7 @@
 package com.ah.manager.controller;
 
 import com.ah.company.service.ProductInService;
+import com.ah.mail.service.ReceiveService;
 import com.ah.manager.common.miniui.AjaxResult;
 import com.ah.manager.pojo.TUser;
 import com.ah.manager.service.SysMenuService;
@@ -38,6 +39,9 @@ public class LoginController {
     
     @Autowired
     private ProductInService productInService;
+    
+    @Autowired
+    private ReceiveService receiveService;
 
     @RequestMapping(value = "/login",method= RequestMethod.GET)
     public String loginForm(HttpServletRequest request, HttpServletResponse response){
@@ -106,7 +110,7 @@ public class LoginController {
     @RequestMapping(value = "/index")
     public String index(Model model){
         model.addAttribute(sysMenuService.findUserId(UserUtils.getCurrentUser().getId()));
-        model.addAttribute("list", productInService.findAll2());
+        model.addAttribute("list", receiveService.findAll());
         return "index";
     }
 

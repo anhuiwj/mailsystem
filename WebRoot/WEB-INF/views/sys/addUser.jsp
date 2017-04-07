@@ -20,8 +20,8 @@
         </div>
         <c:if test="${empty TUser.id}">
             <div class="f-l w-980 mb-20">
-                <label class="f-l mr-30 w-200">登录用户名</label>
-                <input class="input-text" name="userCode"  value="${TUser.userCode}" datatype="english" style="width:300px;">
+                <label class="f-l mr-30 w-200">邮箱地址(13@mail.com)</label>
+                <input class="input-text" name="userCode"  value="${TUser.userCode}" datatype="e,hasUser" style="width:300px;">
             </div>
             <div class="f-l w-980 mb-20">
                 <label class="f-l mr-30 w-200">密码</label>
@@ -56,6 +56,13 @@
                 var reg1=/[A-Za-z]$/;
                 if(reg1.test(gets)){return true;}
                 return false;
+            },
+            "hasUser":function(gets,obj,curform,regxp){
+                //参数gets是获取到的表单元素值，obj为当前表单元素，curform为当前验证的表单，regxp为内置的一些正则表达式的引用;
+               if(hasUser(gets)){
+					return false;
+                  }
+                return true;
             }
         },
         beforeSubmit:function(curform){
@@ -71,11 +78,24 @@
         },
         callback: function (data) {
             parent.layer.msg(data.msg, {icon: 1});
-            parent.exports.gridRefresh();
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
     });
+
+    function hasUser(userCode){
+		var flag = false;
+		$.ajax({
+			url: "${ctx}/user/hasUser",
+			type: "post",
+			async:false,
+			data:{'userCode':userCode},
+			success: function (data) {
+				flag = data;
+			}
+		});
+		return flag;
+      }
 </script>
 </body>
 </html>

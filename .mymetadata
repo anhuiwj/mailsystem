@@ -3,7 +3,7 @@
   type="WEB"
   name="mailsystem"
   id="myeclipse.1489977752623"
-  context-root="/weixin"
+  context-root="/mailsystem"
   j2ee-spec="5.0"
   archive="mailsystem.war">
   <attributes>
